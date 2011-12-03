@@ -1,0 +1,35 @@
+<script type="text/javascript">
+$(function(){
+    var folder = '/static/file-icons/';
+    $('.dirs a').prepend('<img src="' + folder + 'folder.png">');
+    $('.files a').each(function(){
+        var ext = $(this).attr('href').split('.').pop();
+        $(this).prepend('<img src="' + folder + ext + '.png">');
+    });
+});
+</script>
+
+<!-- breadcrumbs -->
+<ul class="breadcrumb">
+    {% for b in breadcrumbs %}
+    <li>
+        <a href="{{ b.url }}" {% if forloop.last %}class="active"{% endif %}>
+            {% if forloop.first %}Начало{% else %}{{ b.name }}{% endif %}
+        </a>
+        {% if not forloop.last %}
+            <span class="divider">/</span>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+<ul class="dirs">
+    {% for d in dirs %}
+        <li><a href="{{ d }}/">{{ d }}</a></li>
+    {% endfor %}
+</ul>
+<ul class="files">
+    {% for f in files %}
+        <li><a href="{{ f }}">{{ f }}</a></li>
+    {% endfor %}
+</ul>
